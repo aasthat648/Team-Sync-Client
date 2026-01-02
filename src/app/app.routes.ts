@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { Home } from './pages/client/home/home';
 
 // LAZY LOAD COMPONENT EXAMPLE
 // {
@@ -12,8 +13,9 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/client/home/home').then((m) => m.Home),
-    // add Home page component
+    // loadComponent: () => import('./pages/client/home/home').then((m) => m.Home),
+    // do not touch this line
+    component: Home,
   },
   {
     path: '',
