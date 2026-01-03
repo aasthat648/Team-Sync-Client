@@ -1,11 +1,12 @@
-<div class="w-full h-[94%] flex flex-col p-5 items-center">
-  <h1 class="font-sans text-2xl font-bold">Login</h1>
-  <p class="text-sm text-gray-400">one solution for all your business CRM problems</p>
-
+<div class="flex flex-col items-center justify-center w-full h-full p-5">
+  <div class="flex flex-col items-center justify-center">
+    <h1 class="font-sans text-2xl font-bold">Welcome back</h1>
+    <p class="text-sm text-gray-400">Login to your Team Sync account</p>
+  </div>
   <form
     [formGroup]="loginForm"
     (ngSubmit)="handleLogin()"
-    class="flex flex-col w-3/4 p-3 m-5 h-4/5 text-primary"
+    class="flex flex-col justify-center w-3/4 p-3 h-4/5 text-primary"
   >
     <label for="" class="pb-2 text-sm text-gray-400">Email</label>
     <div class="relative w-full">
@@ -62,22 +63,27 @@
       }
     }
     <div class="flex items-center justify-between pt-3 pb-4">
-      <span z-checkbox zSize="sm" class="text-secondary-foreground"> Remember me </span>
+      <span z-checkbox zSize="sm" class="text-muted-foreground"> Remember me </span>
 
-      <span class="text-sm cursor-pointer text-muted-foreground hover:underline">
+      <span class="text-sm cursor-pointer text-muted-foreground hover:underline hover:text-primary">
         Forget password?
       </span>
     </div>
     <button z-button>Login</button>
     <div class="flex items-center pt-4">
       <span class="flex-1 border-t border-muted-foreground/30"></span>
-      <span class="px-3 text-xs font-medium text-muted-foreground"> Or</span>
+      <span class="px-3 text-xs font-medium text-muted-foreground"> Or continue with</span>
       <span class="flex-1 border-t border-muted-foreground/30"></span>
+    </div>
+
+    <div class="flex flex-row items-center justify-center gap-4 mt-4 text-foreground">
+      <button z-button zType="outline">G Google</button>
+      <button z-button zType="outline">G Github</button>
     </div>
 
     <div class="flex justify-center gap-1 pt-4 text-sm text-muted-foreground">
       <span>Don't have an account?</span>
-      <a href="/signup" class="font-medium underline text-secondary-foreground"> Sign up </a>
+      <a [routerLink]="['/register']" class="font-medium underline text-primary"> Sign up </a>
     </div>
   </form>
 </div>

@@ -1,11 +1,11 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 export const checkboxVariants = cva(
-  'cursor-[unset] peer appearance-none border transition shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
+  'cursor-[unset] peer appearance-none border transition  focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       zType: {
-        default: 'border-primary checked:bg-primary',
+        default: 'border checked:bg-primary',
         destructive: 'border-destructive checked:bg-destructive',
       },
       zSize: {

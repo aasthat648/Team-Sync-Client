@@ -12,6 +12,7 @@ import { ZardIconComponent } from '@/shared/components/icon/icon.component';
 import { IconsModule } from '@/shared/components/icons';
 import { ZardCheckboxComponent } from '@/shared/components/checkbox/checkbox.component';
 import { ZardButtonComponent } from '@/shared/components/button/button.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ import { ZardButtonComponent } from '@/shared/components/button/button.component
     IconsModule,
     ZardCheckboxComponent,
     ZardButtonComponent,
+    RouterLink,
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
