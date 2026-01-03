@@ -7,10 +7,24 @@ import {
   Validator,
   Validators,
 } from '@angular/forms';
+import { ZardInputDirective } from '@/shared/components/input/input.directive';
+import { ZardIconComponent } from '@/shared/components/icon/icon.component';
+import { IconsModule } from '@/shared/components/icons';
+import { ZardCheckboxComponent } from '@/shared/components/checkbox/checkbox.component';
+import { ZardButtonComponent } from '@/shared/components/button/button.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    ZardInputDirective,
+    ZardIconComponent,
+    IconsModule,
+    ZardCheckboxComponent,
+    ZardButtonComponent,
+    RouterLink,
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
