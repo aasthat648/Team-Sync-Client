@@ -4,7 +4,6 @@ import {
   FormsModule,
   FormGroup,
   FormControl,
-  Validator,
   Validators,
 } from '@angular/forms';
 import { ZardInputDirective } from '@/shared/components/input/input.directive';
