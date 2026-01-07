@@ -17,9 +17,9 @@
 
       <!-- Actions -->
       <div class="ml-auto flex items-center gap-3">
-        <a [routerLink]="['login']" class="px-3 py-1.5 rounded-md hover:bg-muted">Log in</a>
-        <a [routerLink]="['register']" class="px-3 py-1.5 rounded-md bg-primary text-primary-foreground hover:opacity-90">Sign up</a>
-
+        <z-theme />
+        <a [routerLink]="['login']" class="inline-flex items-center justify-center whitespace-nowrap h-9 px-3 rounded-md text-sm hover:bg-muted">Log in</a>
+        <a [routerLink]="['register']" class="inline-flex items-center justify-center whitespace-nowrap h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:opacity-90">Sign up</a>
       </div>
     </div>
   </header>
@@ -151,9 +151,8 @@
             <h4 class="font-semibold tracking-tight">Task Board</h4>
             <a
               [routerLink]="['']"
-              class="px-3 py-1.5 rounded-md bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-sm shadow-xs hover:opacity-90"
-            >
-              + Add Task
+              class="px-3 py-1.5 rounded-md bg-linear-to-r from-violet-500 to-fuchsia-500 text-white text-sm shadow-xs hover:opacity-90">
+            + Add Task
             </a>
           </div>
 
