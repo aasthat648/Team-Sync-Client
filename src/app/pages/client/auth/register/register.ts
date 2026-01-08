@@ -3,6 +3,7 @@ import { ZardButtonComponent } from '@/shared/components/button/button.component
 import { ZardIconComponent } from '@/shared/components/icon/icon.component';
 import { IconsModule } from '@/shared/components/icons';
 import { ZardInputDirective } from '@/shared/components/input/input.directive';
+import { Authservice } from '@/shared/services/auth/authservice';
 import { Component } from '@angular/core';
 import {
   FormsModule,
@@ -27,6 +28,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './register.css',
 })
 export class Register {
+  constructor(private authservice: Authservice) {}
+
   registerForm = new FormGroup({
     name: new FormControl('', [
       Validators.required,
@@ -48,8 +51,18 @@ export class Register {
     ]),
   });
   handleRegister() {
-    const name = this.registerForm.value.name;
-    const email = this.registerForm.value.email;
-    const password = this.registerForm.value.password;
+    const { name, username, email, password } = this.registerForm.value;
+    if (!name || !username || !email || !password) {
+      alert('please enter all fields');
+      return;
+    }
+    this.authservice.register(name, username, email, password).subscribe({
+      next: (res) => {
+        console.log(res.data);
+      },
+      error: (err) => {
+        console.log(err.error);
+      },
+    });
   }
 }
