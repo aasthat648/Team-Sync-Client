@@ -11,7 +11,8 @@ import { ZardIconComponent } from '@/shared/components/icon/icon.component';
 import { IconsModule } from '@/shared/components/icons';
 import { ZardCheckboxComponent } from '@/shared/components/checkbox/checkbox.component';
 import { ZardButtonComponent } from '@/shared/components/button/button.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { Authservice } from '@/shared/services/auth/authservice';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.css',
 })
 export class Login {
+  constructor(
+    private authservice: Authservice,
+    private router: Router,
+  ) {}
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -37,7 +43,23 @@ export class Login {
     ]),
   });
   handleLogin() {
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.password;
+    const { email, password } = this.loginForm.value;
+
+    if (!email || !password) {
+      return alert('Please enter email and password');
+    }
+
+    this.authservice.login(email, password).subscribe({
+      next: (res) => {
+        console.log('Data', res.data);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.log('Error', err.error.error);
+        // 400 -- Something went wrong
+        // 404 -- Invalid email and password
+        // 500 -- Internal server error
+      },
+    });
   }
 }
