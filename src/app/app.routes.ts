@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/client/home/home';
 import { Login } from './pages/client/auth/login/login';
+import { authGuard } from './shared/guards/auth-guard';
 
 // LAZY LOAD COMPONENT EXAMPLE
 // {
@@ -38,6 +39,7 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () =>
       import('./layout/dashboard-layout/dashboard-layout').then((m) => m.DashboardLayout),
+    canActivate: [authGuard],
     children: [
       {
         path: '',
