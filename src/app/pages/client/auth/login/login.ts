@@ -51,7 +51,8 @@ export class Login {
     const { email, password } = this.loginForm.value;
 
     if (!email || !password) {
-      return alert('Please enter email and password');
+      toast('Please enter email and password');
+      return;
     }
 
     this.authservice.login(email, password).subscribe({

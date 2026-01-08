@@ -61,7 +61,7 @@ export class Register {
   handleRegister() {
     const data = this.registerForm.value as RegisterType;
     if (!data.name || !data.username || !data.email || !data.password) {
-      alert('please enter all fields');
+      toast('please enter all fields');
       return;
     }
 
