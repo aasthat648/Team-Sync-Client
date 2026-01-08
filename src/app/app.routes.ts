@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/client/home/home';
+import { Login } from './pages/client/auth/login/login';
 
 // LAZY LOAD COMPONENT EXAMPLE
 // {
@@ -19,11 +20,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    loadComponent: () => import('./core/layout/auth-layout/auth-layout').then((m) => m.AuthLayout),
+    loadComponent: () => import('./layout/auth-layout/auth-layout').then((m) => m.AuthLayout),
     children: [
       {
         path: 'login',
-        loadComponent: () => import('./pages/client/auth/login/login').then((m) => m.Login),
+        // loadComponent: () => import('./pages/client/auth/login/login').then((m) => m.Login),
+        component: Login,
       },
       {
         path: 'register',
@@ -32,21 +34,37 @@ export const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: 'dashboard',
-  //   // add Dashboard layout component
-  //   children: [
-  //     {
-  //       path: '',
-  //       // add Dashboard page component
-  //     },
-  //     {
-  //       path: 'tasks',
-  //       // add Tasks page component
-  //     },
-  //     // and so on...
-  //   ],
-  // },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./layout/dashboard-layout/dashboard-layout').then((m) => m.DashboardLayout),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/client/dashboard/dashboard/dashboard').then((m) => m.Dashboard),
+      },
+      {
+        path: 'tasks',
+        loadComponent: () => import('./pages/client/dashboard/tasks/tasks').then((m) => m.Tasks),
+      },
+      {
+        path: 'members',
+        loadComponent: () =>
+          import('./pages/client/dashboard/members/members').then((m) => m.Members),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import('./pages/client/dashboard/settings/settings').then((m) => m.Settings),
+      },
+      {
+        path: 'projects',
+        loadComponent: () =>
+          import('./pages/client/dashboard/projects/projects').then((m) => m.Projects),
+      },
+    ],
+  },
   {
     path: '**',
     redirectTo: '',
