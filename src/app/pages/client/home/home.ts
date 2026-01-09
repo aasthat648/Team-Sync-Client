@@ -1,11 +1,13 @@
 import { ThemeComponent } from '@/shared/components/theme/theme';
+import { ZardButtonComponent } from '@/shared/components/button/button.component';
 import { ZardIconComponent } from '@/shared/components/icon/icon.component';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+  
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, ThemeComponent, ZardIconComponent],
+  imports: [RouterLink, ThemeComponent, ZardButtonComponent, ZardIconComponent],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

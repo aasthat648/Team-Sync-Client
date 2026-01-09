@@ -1,287 +1,83 @@
 <div class="min-h-screen flex flex-col">
-  <!-- Header -->
-  <header class="sticky top-0 bg-background/80 backdrop-blur border-b">
-    <div class="max-w-5xl mx-auto flex items-center gap-45 py-2 px-10">
-      <!-- Brand -->
-      <a [routerLink]="['']" class="flex items-center gap-2 font-semibold">
+  <header class="sticky top-0 bg-background/80 backdrop-blur border-b z-50">
+    <div class="max-w-6xl mx-auto relative flex items-center gap-8 py-3 px-6">
+      <a [routerLink]="['']" class="flex items-center gap-2 font-semibold text-foreground">
         <span>TeamSync</span>
       </a>
-
-      <!-- Center Nav -->
-      <nav class="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
+      <nav class="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 items-center gap-6 text-sm text-muted-foreground">
         <a [routerLink]="['']" class="hover:text-foreground">Products</a>
         <a [routerLink]="['']" class="hover:text-foreground">Solutions</a>
         <a [routerLink]="['']" class="hover:text-foreground">Resources</a>
         <a [routerLink]="['']" class="hover:text-foreground">Payment</a>
       </nav>
-
-      <!-- Actions -->
       <div class="ml-auto flex items-center gap-3">
         <z-theme />
-        <a [routerLink]="['login']" class="inline-flex items-center justify-center whitespace-nowrap h-9 px-3 rounded-md text-sm hover:bg-muted">Log in</a>
-        <a [routerLink]="['register']" class="inline-flex items-center justify-center whitespace-nowrap h-9 px-3 rounded-md bg-primary text-primary-foreground text-sm hover:opacity-90">Sign up</a>
+        <button z-button [routerLink]="['login']" zType="default" zSize="default">
+          Login
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <main class="flex-1">
-    <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
-      <div class="space-y-3 md:col-span-2 text-center">
-        <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-center m-0">
-          All you need for seamless
-        </h1>
-        <h2 class="text-5xl md:text-6xl font-bold tracking-tight text-center m-0">
-          <span class="bg-linear-to-r from-violet-400 via-fuchsia-500 to-sky-500 text-transparent bg-clip-text">
-            project management
-          </span>
-        </h2>
-        <p class="text-2xl mt-4">
-          Empower your team with an intuitive project management tool that <br>
-          keeps your work organised and your goals in sight.
+  <main class="flex-1 px-6">
+    <section class="min-h-[50vh] flex flex-col items-center justify-center space-y-3">
+      <h1 class="text-3xl md:text-5xl font-bold tracking-tight text-center leading-[1.1]">
+        All you need for seamless
+        <span class="block">Project Management</span>
+      </h1>
+      <p class="text-muted-foreground text-center md:text-lg max-w-2xl">
+        Empower your team with an intuitive project management tool that
+        <br>
+        keeps your work organized and your goals in sight.
+      </p>
+      <button z-button [routerLink]="['register']" zType="default" zSize="lg">
+        Get started
+        <z-icon zType="arrow-right" />
+      </button>
+    </section>
+
+    <section class="mt-0 w-full">
+      <div class="relative mx-auto max-w-5xl border bg-background shadow-sm overflow-hidden">
+        <img
+          alt="Dashboard"
+          class="w-full h-auto block"
+          src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='700'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext
+          x='50%25' y='50%25' dominant-baseline='middle' fill='%23999999'%3E%3C/text%3E%3C/svg%3E"
+        />
+      </div>
+      <div class="text-muted-foreground text-center text-bold mt-10">Trusted by teams at</div>
+      <div class="overflow-hidden mt-4">
+        <div class="home-marquee flex">
+          <ul class="flex items-center gap-8 pr-8">
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Zoom</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Slack</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Google</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Amazon</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Meta</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Spotify</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Flipkart</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Dropbox</li>
+          </ul>
+          <ul class="flex items-center gap-8 pr-8" aria-hidden="true">
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Netflix</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Stripe</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Meesho</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">DesignStudio</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">CloudHub</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">Productify</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">StackWorks</li>
+            <li class="inline-flex items-center justify-center h-9 px-4 bg-background text-muted-foreground">NovaLabs</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Experience the Difference</h2>
+        <p class="text-muted-foreground md:text-xl max-w-2xl mx-auto mt-2">
+          Discover the benefits that make our platform the top choice for teams 
+          <br>
+          striving for excellence.
         </p>
-        <div class="pt-4">
-          <a
-            [routerLink]="['register']"
-            class="inline-flex items-center gap-2 rounded-md px-6 py-3 bg-primary text-primary-foreground shadow-xs hover:bg-primary/90">
-            Get started
-            <z-icon zType="arrow-right" />
-          </a>
-        </div>
-        <div>
-          Trusted by teams at
-        </div>
-        <h1 class="text-light-foreground text-2xl md:text-3xl font-bold text-center mt-6">
-          Experience the Difference
-        </h1>
-        <p class="text-muted-foreground text-center md:text-lg leading-relaxed max-w-2xl mx-auto mt-2">
-          Discover the benefits that make our platform the top choice for teams striving for excellence.
-        </p>
-        
-      </div>
-    </section>
-
-    <section class="bg-muted py-14">
-      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-        <div class="rounded-lg bg-card p-6 border shadow-sm">
-          <div class="flex items-center gap-3">
-            <z-icon zType="layout-dashboard" class="text-primary" />
-            <h3 class="font-semibold text-lg">Project dashboards</h3>
-          </div>
-          <p class="text-muted-foreground mt-3">See the big picture with custom dashboards and metrics.</p>
-        </div>
-        <div class="rounded-lg bg-card p-6 border shadow-sm">
-          <div class="flex items-center gap-3">
-            <z-icon zType="calendar-plus" class="text-primary" />
-            <h3 class="font-semibold text-lg">Smart scheduling</h3>
-          </div>
-          <p class="text-muted-foreground mt-3">Plan sprints and auto-assign tasks based on workload.</p>
-        </div>
-        <div class="rounded-lg bg-card p-6 border shadow-sm">
-          <div class="flex items-center gap-3">
-            <z-icon zType="sparkles" class="text-primary" />
-            <h3 class="font-semibold text-lg">Robust Security</h3>
-          </div>
-          <p class="text-muted-foreground mt-3">Enterprise-grade security to keep your data safe.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16">
-      <div class="max-w-6xl mx-auto px-6 text-center space-y-2">
-        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Streamline Your workflow</h2>
-        <p class="text-muted-foreground text-base">Powerful tools designed to simplify task management and boost team productivity.</p>
-      </div>
-      <div class="max-w-6xl mx-auto px-6 mt-10 grid md:grid-cols-2 gap-8 items-center">
-        <div class="space-y-3">
-          <span class="text-sm font-bold tracking-widest text-primary">Workflow Tools</span>
-          <h3 class="text-2xl md:text-3xl font-bold">Real-Time Collaboration</h3>
-          <p class="text-muted-foreground">Stay everyone on the same page with instant updates and shared workspaces. Keep everyone on the same page with instant updates and shared workspaces.</p>
-          <a [routerLink]="['']" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border hover:bg-accent hover:text-accent-foreground w-fit">
-            Learn more
-            <z-icon zType="arrow-right" />
-          </a>
-        </div>
-        <div class="rounded-xl bg-card border shadow-sm p-6">
-          <div class="flex items-center justify-between">
-            <h4 class="font-medium">Project Dashboard</h4>
-            <div class="flex items-center gap-2">
-              <span class="size-2 rounded-full bg-rose-400"></span>
-              <span class="size-2 rounded-full bg-amber-400"></span>
-              <span class="size-2 rounded-full bg-emerald-400"></span>
-            </div>
-          </div>
-          <div class="mt-6 space-y-4">
-            <div class="space-y-2">
-              <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                <z-icon zType="calendar" />
-                <span>Timeline</span>
-              </div>
-              <div class="h-3 rounded-full bg-muted overflow-hidden">
-                <div class="h-full w-3/4 bg-linear-to-r from-violet-500 via-fuchsia-500 to-sky-500"></div>
-              </div>
-            </div>
-            <div class="space-y-2">
-              <div class="flex items-center gap-2 text-sm text-muted-foreground">
-                <z-icon zType="activity" />
-                <span>Progress</span>
-              </div>
-              <div class="h-3 rounded-full bg-muted overflow-hidden">
-                <div class="h-full w-2/3 bg-linear-to-r from-sky-500 to-violet-500"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-8">
-      <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
-        <div class="space-y-3 order-2 md:order-1">
-          <span class="text-sm font-bold tracking-widest text-primary">Task Organization</span>
-          <h3 class="text-2xl md:text-3xl font-bold">Easy Task Management</h3>
-          <p class="text-muted-foreground">Create, assign, and track tasks with intuitive drag-and-drop functionality. Set priorities, deadlines, and dependencies to keep your projects moving forward smoothly.</p>
-          <a [routerLink]="['']" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border hover:bg-accent hover:text-accent-foreground w-fit">
-            Learn more
-            <z-icon zType="arrow-right" />
-          </a>
-        </div>
-        <div class="rounded-2xl bg-card border shadow p-6 order-1 md:order-2">
-          <div class="flex items-center justify-between">
-            <h4 class="font-semibold tracking-tight">Task Board</h4>
-            <a
-              [routerLink]="['']"
-              class="px-3 py-1.5 rounded-md bg-linear-to-r from-violet-500 to-fuchsia-500 text-white text-sm shadow-xs hover:opacity-90">
-            + Add Task
-            </a>
-          </div>
-
-          <div class="mt-6 grid grid-cols-3 gap-6 text-sm">
-            <div class="space-y-3">
-              <div class="font-medium text-muted-foreground tracking-wide">TO DO</div>
-              <div class="space-y-3">
-                <div class="rounded-lg border p-3 bg-background shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md flex items-center justify-between">
-                  <span>Design Review</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">Today</span>
-                </div>
-                <div class="rounded-lg border p-3 bg-background shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md flex items-center justify-between">
-                  <span>User Testing</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">Tomorrow</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-3">
-              <div class="font-medium text-muted-foreground tracking-wide">IN PROGRESS</div>
-              <div class="space-y-3">
-                <div class="rounded-lg border p-3 bg-background shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md flex items-center justify-between">
-                  <span>API Integration</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">High</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="space-y-3">
-              <div class="font-medium text-muted-foreground tracking-wide">DONE</div>
-              <div class="space-y-3">
-                <div class="rounded-lg border p-3 bg-background shadow-xs transition-all hover:-translate-y-0.5 hover:shadow-md flex items-center justify-between">
-                  <span>Database Setup</span>
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">Completed</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16 bg-muted/60">
-      <div class="max-w-6xl mx-auto px-6 text-center space-y-2">
-        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Trusted by Teams</h2>
-        <p class="text-muted-foreground text-base">See what our customers have to say about their experience with TeamSync and discover what makes us special.</p>
-      </div>
-      <div class="max-w-6xl mx-auto px-6 mt-10 grid md:grid-cols-3 gap-6">
-        <div class="rounded-xl bg-card border shadow-sm p-6 space-y-3">
-          <div class="text-amber-400 flex gap-1">
-            <z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" />
-          </div>
-          <p class="text-muted-foreground">“TeamSync has been a game-changer for our team. The intuitive interface and powerful features have streamlined our workflow significantly.”</p>
-          <div class="text-sm">
-            <div class="font-medium">Aurelia</div>
-            <div class="text-muted-foreground">Product Manager, TechFlow</div>
-          </div>
-        </div>
-        <div class="rounded-xl bg-card border shadow-sm p-6 space-y-3">
-          <div class="text-amber-400 flex gap-1">
-            <z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" />
-          </div>
-          <p class="text-muted-foreground">“We’ve integrated TeamSync into our daily operations and seen a 40% improvement in project delivery times. Highly recommended!”</p>
-          <div class="text-sm">
-            <div class="font-medium">Zayden</div>
-            <div class="text-muted-foreground">Engineering Lead, InnovateCorp</div>
-          </div>
-        </div>
-        <div class="rounded-xl bg-card border shadow-sm p-6 space-y-3">
-          <div class="text-amber-400 flex gap-1">
-            <z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" /><z-icon zType="star" />
-          </div>
-          <p class="text-muted-foreground">“The collaboration features in TeamSync have transformed how our creative team works together. It’s simply outstanding.”</p>
-          <div class="text-sm">
-            <div class="font-medium">Arzo</div>
-            <div class="text-muted-foreground">Creative Director, DesignStudio</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16">
-      <div class="max-w-6xl mx-auto px-6 text-center space-y-2">
-        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Need Help?</h2>
-        <p class="text-muted-foreground text-base">Find answers to the most common questions to help you navigate our platform.</p>
-      </div>
-      <div class="max-w-3xl mx-auto px-6 mt-8 space-y-3">
-        <details class="rounded-lg border bg-background p-4" [open]="openIndex===0" (toggle)="setOpen(0,$event)">
-          <summary class="cursor-pointer font-medium">How does the platform scale with growing teams?</summary>
-          <div class="text-muted-foreground mt-2">TeamSync scales with your team through flexible workspaces, role-based access, and performance optimizations.</div>
-        </details>
-        <details class="rounded-lg border bg-background p-4" [open]="openIndex===1" (toggle)="setOpen(1,$event)">
-          <summary class="cursor-pointer font-medium">What advanced security measures do you have in place?</summary>
-          <div class="text-muted-foreground mt-2">We use enterprise-grade security: encryption, access controls, audit logs, and SOC-ready practices.</div>
-        </details>
-        <details class="rounded-lg border bg-background p-4" [open]="openIndex===2" (toggle)="setOpen(2,$event)">
-          <summary class="cursor-pointer font-medium">What analytics and reporting capabilities does the platform offer?</summary>
-          <div class="text-muted-foreground mt-2">Dashboards, burndown charts, workload analytics, and exportable reports are included.</div>
-        </details>
-        <details class="rounded-lg border bg-background p-4" [open]="openIndex===3" (toggle)="setOpen(3,$event)">
-          <summary class="cursor-pointer font-medium">How do integrations work with third‑party service providers?</summary>
-          <div class="text-muted-foreground mt-2">Integrations via API and webhooks support tools like Slack, GitHub, and cloud storage.</div>
-        </details>
-        <details class="rounded-lg border bg-background p-4" [open]="openIndex===4" (toggle)="setOpen(4,$event)">
-          <summary class="cursor-pointer font-medium">Can I customize workflows to match our unique processes?</summary>
-          <div class="text-muted-foreground mt-2">Yes. Customize statuses, fields, templates, and automations to fit your processes.</div>
-        </details>
-      </div>
-    </section>
-
-    <section class="py-10">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="rounded-2xl bg-linear-to-r from-violet-600 via-fuchsia-600 to-indigo-600 text-white p-10 md:p-14 text-center">
-          <h3 class="text-2xl md:text-3xl font-semibold">Elevate Your Work Today</h3>
-          <p class="mt-2 opacity-90">Join thousands of teams already using TeamSync to streamline their workflow and achieve their goals faster.</p>
-          <a [routerLink]="['register']" class="mt-5 inline-flex items-center gap-2 rounded-md bg-white text-foreground px-5 py-3 shadow-xs hover:opacity-90">
-            Get started
-            <z-icon zType="arrow-right" />
-          </a>
-        </div>
       </div>
     </section>
   </main>
-
-  <!-- Footer -->
-  <footer class="border-t">
-    <div class="max-w-6xl mx-auto px-6 py-6 text-sm text-muted-foreground flex items-center justify-between">
-      <span>© {{ year }} TeamSync.in</span>
-      
-    </div>
-  </footer>
 </div>
