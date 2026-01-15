@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 import { ɵInternalFormsSharedModule } from '@angular/forms';
 import { ZardDialogService } from '@/shared/components/dialog/dialog.service';
 import { CreateWorkspace } from '@/shared/custom-components/workspace/create.workspace/create.workspace';
+import { RouterOutlet } from '@angular/router';
 
 interface MenuItem {
   icon: ZardIcon;
@@ -42,13 +43,14 @@ interface MenuItem {
     ZardBreadcrumbComponent,
     ZardMenuImports,
     ZardIconComponent,
-    ZardSkeletonComponent,
+
     ZardDividerComponent,
     ZardTooltipDirective,
     ContentComponent,
     ZardBreadcrumbItemComponent,
     LucideAngularModule,
     ɵInternalFormsSharedModule,
+    RouterOutlet,
   ],
   templateUrl: './dashboard-layout.html',
   styleUrl: './dashboard-layout.css',
