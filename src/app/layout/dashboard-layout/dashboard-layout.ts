@@ -22,7 +22,7 @@ import { LucideAngularModule } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
 import { ɵInternalFormsSharedModule } from '@angular/forms';
 import { ZardDialogService } from '@/shared/components/dialog/dialog.service';
-import { CreateWorkspace } from '@/shared/custom-components/workspace/create.workspace/create.workspace';
+import { CreateWorkspace } from '@/shared/custom-components/workspaces/create.workspace';
 import { Router, RouterOutlet } from '@angular/router';
 
 interface MenuItem {
