@@ -11,21 +11,24 @@ import { LayoutComponent } from '@/shared/components/layout/layout.component';
 import {
   SidebarComponent,
   SidebarGroupComponent,
-  SidebarGroupLabelComponent,
 } from '@/shared/components/layout/sidebar.component';
-import { ZardMenuLabelComponent } from '@/shared/components/menu/menu-label.component';
 import { ZardMenuImports } from '@/shared/components/menu/menu.imports';
 import { ZardSkeletonComponent } from '@/shared/components/skeleton/skeleton.component';
-import { ZardTooltipComponent, ZardTooltipDirective } from '@/shared/components/tooltip/tooltip';
-import { Component, signal } from '@angular/core';
+import { ZardTooltipDirective } from '@/shared/components/tooltip/tooltip';
+import { Component, inject, signal } from '@angular/core';
 import { ContentComponent } from '@/shared/components/layout/content.component';
 import { ZardIcon } from '@/shared/components/icon/icons';
-import { LucideIcons, LucideAngularModule } from 'lucide-angular';
+import { LucideAngularModule } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
+import { ɵInternalFormsSharedModule } from '@angular/forms';
+import { ZardDialogService } from '@/shared/components/dialog/dialog.service';
+import { CreateWorkspace } from '@/shared/custom-components/workspace/create.workspace/create.workspace';
+import { Router, RouterOutlet } from '@angular/router';
 
 interface MenuItem {
   icon: ZardIcon;
   label: string;
+  link?: string;
   submenu?: { label: string; icon: ZardIcon }[];
 }
 
@@ -41,18 +44,22 @@ interface MenuItem {
     ZardBreadcrumbComponent,
     ZardMenuImports,
     ZardIconComponent,
-    ZardSkeletonComponent,
     ZardDividerComponent,
     ZardTooltipDirective,
     ContentComponent,
     ZardBreadcrumbItemComponent,
     LucideAngularModule,
+    ɵInternalFormsSharedModule,
+    RouterOutlet,
   ],
   templateUrl: './dashboard-layout.html',
   styleUrl: './dashboard-layout.css',
 })
 export class DashboardLayout {
+  private dialogService = inject(ZardDialogService);
   readonly sidebarCollapsed = signal(false);
+
+  constructor(private router: Router) {}
 
   workspaceMenuItems: MenuItem[] = [
     // {
@@ -63,7 +70,7 @@ export class DashboardLayout {
     //     { icon: 'plus', label: 'Add Workspace' },
     //   ],
     // },
-    { icon: 'layout-dashboard', label: 'Dashboard' },
+    { icon: 'layout-dashboard', label: 'Dashboard', link: '/dashboard' },
     {
       icon: 'folder',
       label: 'Projects',
@@ -73,10 +80,15 @@ export class DashboardLayout {
         { icon: 'folder', label: 'Website' },
       ],
     },
-    { icon: 'circle-check', label: 'Tasks' },
-    { icon: 'users', label: 'Members' },
-    { icon: 'settings', label: 'Settings' },
+    { icon: 'circle-check', label: 'Tasks', link: 'dashboard/tasks' },
+    { icon: 'users', label: 'Members', link: 'dashboard/members' },
+    { icon: 'settings', label: 'Settings', link: 'dashboard/settings' },
   ];
+
+  navigate(link?: string) {
+    if (!link) return;
+    this.router.navigate([link]);
+  }
 
   toggleSidebar() {
     this.sidebarCollapsed.update((collapsed) => !collapsed);
@@ -84,5 +96,17 @@ export class DashboardLayout {
 
   onCollapsedChange(collapsed: boolean) {
     this.sidebarCollapsed.set(collapsed);
+  }
+
+  openWorkspace() {
+    this.dialogService.create({
+      zTitle: 'Create Workspace',
+      zDescription: 'create your own workspace',
+      zContent: CreateWorkspace,
+      zWidth: '425px',
+      zOkText: null,
+      zCancelText: null,
+      zClosable: true,
+    });
   }
 }
