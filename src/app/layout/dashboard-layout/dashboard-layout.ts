@@ -23,10 +23,12 @@ import { CommonModule } from '@angular/common';
 import { ɵInternalFormsSharedModule } from '@angular/forms';
 import { ZardDialogService } from '@/shared/components/dialog/dialog.service';
 import { CreateWorkspace } from '@/shared/custom-components/workspace/create.workspace/create.workspace';
+import { Router, RouterOutlet } from '@angular/router';
 
 interface MenuItem {
   icon: ZardIcon;
   label: string;
+  link?: string;
   submenu?: { label: string; icon: ZardIcon }[];
 }
 
@@ -42,13 +44,13 @@ interface MenuItem {
     ZardBreadcrumbComponent,
     ZardMenuImports,
     ZardIconComponent,
-    ZardSkeletonComponent,
     ZardDividerComponent,
     ZardTooltipDirective,
     ContentComponent,
     ZardBreadcrumbItemComponent,
     LucideAngularModule,
     ɵInternalFormsSharedModule,
+    RouterOutlet,
   ],
   templateUrl: './dashboard-layout.html',
   styleUrl: './dashboard-layout.css',
@@ -56,6 +58,8 @@ interface MenuItem {
 export class DashboardLayout {
   private dialogService = inject(ZardDialogService);
   readonly sidebarCollapsed = signal(false);
+
+  constructor(private router: Router) {}
 
   workspaceMenuItems: MenuItem[] = [
     // {
@@ -66,7 +70,7 @@ export class DashboardLayout {
     //     { icon: 'plus', label: 'Add Workspace' },
     //   ],
     // },
-    { icon: 'layout-dashboard', label: 'Dashboard' },
+    { icon: 'layout-dashboard', label: 'Dashboard', link: '/dashboard' },
     {
       icon: 'folder',
       label: 'Projects',
@@ -76,10 +80,15 @@ export class DashboardLayout {
         { icon: 'folder', label: 'Website' },
       ],
     },
-    { icon: 'circle-check', label: 'Tasks' },
-    { icon: 'users', label: 'Members' },
-    { icon: 'settings', label: 'Settings' },
+    { icon: 'circle-check', label: 'Tasks', link: 'dashboard/tasks' },
+    { icon: 'users', label: 'Members', link: 'dashboard/members' },
+    { icon: 'settings', label: 'Settings', link: 'dashboard/settings' },
   ];
+
+  navigate(link?: string) {
+    if (!link) return;
+    this.router.navigate([link]);
+  }
 
   toggleSidebar() {
     this.sidebarCollapsed.update((collapsed) => !collapsed);
