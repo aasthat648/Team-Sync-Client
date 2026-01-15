@@ -122,6 +122,7 @@
               type="button"
               z-button
               zType="ghost"
+              (click)="navigate(item.link)"
               [class]="sidebarCollapsed() ? 'justify-center' : 'justify-start'"
               [zTooltip]="sidebarCollapsed() ? item.label : ''"
               zPosition="right"
