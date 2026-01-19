@@ -101,7 +101,7 @@ export class DashboardLayout {
   openWorkspace() {
     this.dialogService.create({
       zTitle: 'Create Workspace',
-      zDescription: 'create your own workspace',
+      zDescription: 'Create your own workspace',
       zContent: Workspace,
       zWidth: '425px',
       zOkText: null,

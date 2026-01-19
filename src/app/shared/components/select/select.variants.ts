@@ -4,8 +4,8 @@ import { mergeClasses } from '@/shared/utils/merge-classes';
 
 export const selectVariants = cva(
   mergeClasses(
-    'relative inline-block w-full rounded-md group data-active:border data-active:border-ring data-active:ring-ring/50 data-active:ring-[3px]',
-    '[&_button]:focus-visible:border [&_button]:focus-visible:border-ring [&_button]:focus-visible:ring-ring/50 [&_button]:focus-visible:ring-[3px]',
+    'relative inline-block w-full rounded-md group data-active:border data-active:border-ring data-active:ring-ring/50 data-active:ring-[1px]',
+    '[&_button]:focus-visible:border [&_button]:focus-visible:border-ring [&_button]:focus-visible:ring-ring/50 [&_button]:focus-visible:ring-[1px]',
   ),
 );
 
@@ -79,5 +79,9 @@ export const selectItemIconVariants = cva('absolute flex size-3.5 items-center j
   ],
 });
 
-export type ZardSelectSizeVariants = NonNullable<VariantProps<typeof selectTriggerVariants>['zSize']>;
-export type ZardSelectItemModeVariants = NonNullable<VariantProps<typeof selectItemVariants>['zMode']>;
+export type ZardSelectSizeVariants = NonNullable<
+  VariantProps<typeof selectTriggerVariants>['zSize']
+>;
+export type ZardSelectItemModeVariants = NonNullable<
+  VariantProps<typeof selectItemVariants>['zMode']
+>;
