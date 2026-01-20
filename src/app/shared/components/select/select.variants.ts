@@ -12,7 +12,7 @@ export const selectVariants = cva(
 export const selectTriggerVariants = cva(
   mergeClasses(
     'flex w-full items-center justify-between gap-2 rounded-md border border-input bg-transparent',
-    'shadow-xs transition-[color,box-shadow] outline-none cursor-pointer disabled:cursor-not-allowed',
+    ' transition-[color,] outline-none cursor-pointer disabled:cursor-not-allowed',
     'disabled:opacity-50 data-placeholder:text-muted-foreground [&_svg:not([class*="text-"])]:text-muted-foreground',
     'dark:bg-input/30 dark:hover:bg-input/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40',
     'aria-invalid:border-destructive [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4',
