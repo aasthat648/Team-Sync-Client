@@ -1,10 +1,11 @@
+import { ZardAvatarComponent } from '@/shared/components/avatar/avatar.component';
 import { Z_SHEET_DATA } from '@/shared/components/sheet';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, FormControlName } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ZardAvatarComponent],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })

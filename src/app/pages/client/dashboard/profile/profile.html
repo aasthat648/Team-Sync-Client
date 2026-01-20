@@ -1,5 +1,16 @@
-<form [formGroup]="profile" class="grid flex-1 auto-rows-min gap-6 px-4">
-  <div class="grid gap-3">
+<form [formGroup]="profile" class="flex flex-col auto-rows-min gap-6 px-4">
+  <div class="flex">
+    <z-avatar
+      zSrc="https://zardui.com/images/avatar/imgs/avatar_image.jpg"
+      zAlt="User Avatar"
+      zSize="xl"
+      class="cursor-pointer"
+      (click)="fileInput.click()"
+    />
+
+    <input #fileInput type="file" hidden />
+  </div>
+  <div class="flex flex-col gap-3">
     <label
       for="name"
       class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
@@ -13,7 +24,7 @@
     />
   </div>
 
-  <div class="grid gap-3">
+  <div class="flex flex-col gap-3">
     <label
       for="username"
       class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
