@@ -24,6 +24,9 @@ import { ɵInternalFormsSharedModule } from '@angular/forms';
 import { ZardDialogService } from '@/shared/components/dialog/dialog.service';
 import { Router, RouterOutlet } from '@angular/router';
 import { Workspace } from '@/shared/custom-components/workspace/workspace';
+import { ZardSheetService } from '@/shared/components/sheet';
+import { profile } from 'console';
+import { Profile } from '@/pages/client/dashboard/profile/profile';
 
 interface MenuItem {
   icon: ZardIcon;
@@ -56,6 +59,7 @@ interface MenuItem {
   styleUrl: './dashboard-layout.css',
 })
 export class DashboardLayout {
+  private sheetService = inject(ZardSheetService);
   private dialogService = inject(ZardDialogService);
   readonly sidebarCollapsed = signal(false);
 
@@ -101,12 +105,25 @@ export class DashboardLayout {
   openWorkspace() {
     this.dialogService.create({
       zTitle: 'Create Workspace',
-      zDescription: 'create your own workspace',
+      zDescription: 'Create your own workspace',
       zContent: Workspace,
       zWidth: '425px',
       zOkText: null,
       zCancelText: null,
       zClosable: true,
+    });
+  }
+
+  openProfile() {
+    this.sheetService.create({
+      zTitle: 'Edit profile',
+      zDescription: `Make changes to your profile here. Click save when you're done.`,
+      zContent: Profile,
+      zData: {
+        name: 'Matheus Ribeiro',
+        username: '@ribeiromatheus.dev',
+      },
+      zOkText: 'Save changes',
     });
   }
 }
