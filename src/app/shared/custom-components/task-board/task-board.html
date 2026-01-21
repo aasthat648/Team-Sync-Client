@@ -22,7 +22,9 @@
       <!-- Drop List -->
       <div
         cdkDropList
+        [id]="column.id"
         [cdkDropListData]="column.tasks"
+        [cdkDropListConnectedTo]="connectedDropLists"
         (cdkDropListDropped)="drop($event)"
         class="flex flex-col gap-4 min-h-37.5"
       >
@@ -31,6 +33,49 @@
             cdkDrag
             class="bg-white rounded-xl p-4 border shadow-sm cursor-move hover:shadow-md transition"
           >
+            <!-- Placeholder (stays in list) -->
+            <ng-template cdkDragPlaceholder>
+              <div class="rounded-xl p-4 border shadow-lg bg-[#f9fafb]">
+                <span
+                  class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
+                >
+                  {{ task.tag }}
+                </span>
+
+                <!-- Title -->
+                <h4 class="font-semibold text-sm text-muted-foreground">
+                  {{ task.title }}
+                </h4>
+
+                <!-- Description -->
+                <p class="text-xs text-gray-500 mt-1">
+                  {{ task.description }}
+                </p>
+              </div>
+            </ng-template>
+
+            <!-- Preview (follows mouse) -->
+            <ng-template cdkDragPreview [matchSize]="true">
+              <div class="rounded-xl p-4 border shadow-lg">
+                <span
+                  class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
+                >
+                  {{ task.tag }}
+                </span>
+
+                <!-- Title -->
+                <h4 class="font-semibold text-sm">
+                  {{ task.title }}
+                </h4>
+
+                <!-- Description -->
+                <p class="text-xs text-gray-500 mt-1">
+                  {{ task.description }}
+                </p>
+              </div>
+            </ng-template>
+
+            <!-- Actual contene -->
             <!-- Tag -->
             <span
               class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
