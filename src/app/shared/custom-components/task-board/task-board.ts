@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   CdkDragDrop,
   DragDropModule,
@@ -6,12 +6,16 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
+import { ZardDialogService } from '@/shared/components/dialog/dialog.service';
+import { CreateTask } from '../create-task/create-task';
 
 interface KanbanTask {
   id: number;
   title: string;
   description: string;
-  tag: string;
+  priority: string;
+  createdAt: Date;
+  dueDate: Date;
 }
 
 interface KanbanColumn {
@@ -27,6 +31,7 @@ interface KanbanColumn {
   styleUrl: './task-board.css',
 })
 export class TaskBoard {
+  private dialogService = inject(ZardDialogService);
   connectedDropLists: string[] = [];
 
   ngOnInit() {
@@ -46,7 +51,9 @@ export class TaskBoard {
           id: 1,
           title: 'login',
           description: 'login is todo',
-          tag: 'task 1',
+          priority: 'high',
+          createdAt: new Date('2025-03-05'),
+          dueDate: new Date('2025-03-07'),
         },
       ],
     },
@@ -58,7 +65,9 @@ export class TaskBoard {
           id: 2,
           title: 'register',
           description: 'register is in progress',
-          tag: 'task 2',
+          priority: 'low',
+          createdAt: new Date('2025-03-05'),
+          dueDate: new Date('2025-03-07'),
         },
       ],
     },
@@ -92,5 +101,17 @@ export class TaskBoard {
       );
       console.log('Moved from else');
     }
+  }
+
+  openTask(id: string) {
+    this.dialogService.create({
+      zTitle: 'Create Task',
+      zDescription: 'Create your own task',
+      zContent: CreateTask,
+      zWidth: '425px',
+      zOkText: null,
+      zCancelText: null,
+      zClosable: true,
+    });
   }
 }
