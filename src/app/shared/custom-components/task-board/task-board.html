@@ -32,7 +32,9 @@
           <div cdkDrag>
             <!-- Placeholder (stays in list) -->
             <ng-template cdkDragPlaceholder>
-              <div class="rounded-xl p-4 border shadow-lg bg-[#f9fafb]">
+              <div
+                class="rounded-xl p-4 border shadow-xs cursor-grab active:cursor-grabbing bg-[#f9fafb]"
+              >
                 <span
                   class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
                 >
@@ -53,7 +55,9 @@
 
             <!-- Preview (follows mouse) -->
             <ng-template cdkDragPreview [matchSize]="true">
-              <div class="rounded-xl p-4 border shadow-lg">
+              <div
+                class="rounded-xl p-4 border shadow-xs cursor-grab hover:cursor-grab active:cursor-grabbing"
+              >
                 <span
                   class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
                 >
@@ -74,7 +78,7 @@
 
             <!-- Actual contene -->
             <div
-              class="bg-white rounded-xl p-4 border shadow-sm cursor-move hover:shadow-md transition"
+              class="bg-white rounded-xl p-4 border shadow-xs cursor-grab active:cursor-grabbing hover:shadow-md transition"
             >
               <!-- Tag -->
               <span
