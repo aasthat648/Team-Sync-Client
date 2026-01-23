@@ -15,6 +15,7 @@
       <!-- Add Task -->
       <button
         class="w-full mb-4 py-2 text-sm text-blue-600 border border-dashed border-blue-300 rounded-lg hover:bg-blue-50"
+        (click)="openTask(column.id)"
       >
         + Add New Task
       </button>
@@ -36,13 +37,18 @@
                 class="rounded-xl p-4 border shadow-xs cursor-grab active:cursor-grabbing bg-[#f9fafb]"
               >
                 <span
-                  class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
+                  class="inline-block mb-2 text-xs font-medium px-4 py-1 rounded-full"
+                  [ngClass]="{
+                    'bg-purple-300 text-purple-700': task.priority === 'high',
+                    'bg-yellow-300 text-yellow-700': task.priority === 'medium',
+                    'bg-green-300 text-green-700': task.priority === 'low',
+                  }"
                 >
-                  {{ task.tag }}
+                  {{ task.priority }}
                 </span>
 
                 <!-- Title -->
-                <h4 class="font-semibold text-sm text-muted-foreground">
+                <h4 class="font-semibold text-lg text-muted-foreground">
                   {{ task.title }}
                 </h4>
 
@@ -50,6 +56,12 @@
                 <p class="text-xs text-gray-500 mt-1">
                   {{ task.description }}
                 </p>
+
+                <!-- Date -->
+                <span class="text-xs text-gray-500">
+                  {{ task.createdAt | date: 'MMM d' }} -
+                  {{ task.dueDate | date: 'MMM d, y' }}
+                </span>
               </div>
             </ng-template>
 
@@ -59,13 +71,18 @@
                 class="rounded-xl p-4 border shadow-xs cursor-grab hover:cursor-grab active:cursor-grabbing"
               >
                 <span
-                  class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
+                  class="inline-block mb-2 text-xs font-medium px-4 py-1 rounded-full"
+                  [ngClass]="{
+                    'bg-purple-300 text-purple-700': task.priority === 'high',
+                    'bg-yellow-300 text-yellow-700': task.priority === 'medium',
+                    'bg-green-300 text-green-700': task.priority === 'low',
+                  }"
                 >
-                  {{ task.tag }}
+                  {{ task.priority }}
                 </span>
 
                 <!-- Title -->
-                <h4 class="font-semibold text-sm">
+                <h4 class="font-semibold text-lg">
                   {{ task.title }}
                 </h4>
 
@@ -73,22 +90,33 @@
                 <p class="text-xs text-gray-500 mt-1">
                   {{ task.description }}
                 </p>
+
+                <!-- Date -->
+                <span class="text-xs text-gray-500">
+                  {{ task.createdAt | date: 'MMM d' }} -
+                  {{ task.dueDate | date: 'MMM d, y' }}
+                </span>
               </div>
             </ng-template>
 
-            <!-- Actual contene -->
+            <!-- Actual contents -->
             <div
               class="bg-white rounded-xl p-4 border shadow-xs cursor-grab active:cursor-grabbing hover:shadow-md transition"
             >
-              <!-- Tag -->
+              <!-- priority -->
               <span
-                class="inline-block mb-2 text-xs font-medium px-2 py-1 rounded-full bg-yellow-100 text-yellow-700"
+                class="inline-block mb-2 text-xs font-medium px-4 py-1 rounded-full"
+                [ngClass]="{
+                  'bg-purple-300 text-purple-700': task.priority === 'high',
+                  'bg-yellow-300 text-yellow-700': task.priority === 'medium',
+                  'bg-green-300 text-green-700': task.priority === 'low',
+                }"
               >
-                {{ task.tag }}
+                {{ task.priority }}
               </span>
 
               <!-- Title -->
-              <h4 class="font-semibold text-sm">
+              <h4 class="font-semibold text-lg">
                 {{ task.title }}
               </h4>
 
@@ -96,6 +124,12 @@
               <p class="text-xs text-gray-500 mt-1">
                 {{ task.description }}
               </p>
+
+              <!-- Date -->
+              <span class="text-sm text-gray-500">
+                {{ task.createdAt | date: 'MMM d' }} -
+                {{ task.dueDate | date: 'MMM d, y' }}
+              </span>
             </div>
           </div>
         }
