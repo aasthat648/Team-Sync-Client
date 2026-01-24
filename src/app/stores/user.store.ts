@@ -1,11 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 type User = {
   id: string;
-  name: string;
-  username: string;
-  email: string;
-  currentworkspace: string;
-  avtarurl: string;
 };
 
 @Injectable({
@@ -14,11 +9,6 @@ type User = {
 export class UserStore {
   user = signal<User>({
     id: '',
-    name: '',
-    username: '',
-    email: '',
-    currentworkspace: '',
-    avtarurl: '',
   });
 
   constructor() {
@@ -40,11 +30,6 @@ export class UserStore {
   clear() {
     this.user.set({
       id: '',
-      name: '',
-      username: '',
-      email: '',
-      currentworkspace: '',
-      avtarurl: '',
     });
     if (typeof window !== 'undefined') {
       localStorage.removeItem('user');
