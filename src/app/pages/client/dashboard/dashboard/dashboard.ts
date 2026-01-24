@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ZardButtonComponent } from '@/shared/components/button/button.component';
 import { ZardDialogService } from '@/shared/components/dialog/dialog.service';
+import { ZardIconComponent } from '@/shared/components/icon/icon.component';
 import { CreateProject } from '@/shared/custom-components/create-project/create-project';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [ZardButtonComponent],
+  imports: [ZardButtonComponent, ZardIconComponent],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

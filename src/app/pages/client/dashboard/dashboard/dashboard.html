@@ -11,5 +11,51 @@
         <button z-button (click)="openProject()">+ New Project</button>
       </div>
     </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+      <div class="rounded-xl border bg-white shadow-sm p-6">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2 font-semibold text-sm">
+            <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+            Total Task
+          </div>
+          <z-icon zType="ellipsis" class="w-4 h-4 text-muted-foreground"></z-icon>
+        </div>
+        <div class="text-3xl font-bold">3</div>
+      </div>
+
+      <div class="rounded-xl border bg-white shadow-sm p-6">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2 font-semibold text-sm">
+            <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+            Tasks In Progress
+          </div>
+          <z-icon zType="ellipsis" class="w-4 h-4 text-muted-foreground"></z-icon>
+        </div>
+        <div class="text-3xl font-semibold">2</div>
+      </div>
+
+      <div class="rounded-xl border bg-white shadow-sm p-6">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2 font-semibold text-sm">
+            <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+            Pending Task
+          </div>
+          <z-icon zType="ellipsis" class="w-4 h-4 text-muted-foreground" />
+        </div>
+        <div class="text-3xl font-semibold">2</div>
+      </div>
+
+      <div class="rounded-xl border bg-white shadow-sm p-6">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2 font-semibold text-sm">
+            <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+            Overdue Tasks
+          </div>
+          <z-icon zType="ellipsis" class="w-4 h-4 text-muted-foreground"></z-icon>
+        </div>
+        <div class="text-3xl font-semibold">1</div>
+      </div>
+    </div>
   </div>
 </div>
