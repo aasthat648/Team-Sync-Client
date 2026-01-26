@@ -6,9 +6,6 @@ import { CommonModule } from '@angular/common';
 import { inject, Component, signal } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ZardInputDirective } from '@/shared/components/input/input.directive';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environment/environment';
-import { ErrorHandlerService } from '@/shared/services/error-handler/error.handler.service';
 import { toast } from 'ngx-sonner';
 
 @Component({
@@ -26,9 +23,6 @@ import { toast } from 'ngx-sonner';
 export class CreateProject {
   private zData = inject(Z_MODAL_DATA);
   private dialogRef = inject<ZardDialogRef<CreateProject>>(ZardDialogRef);
-  private http = inject(HttpClient);
-  private errorHandler = inject(ErrorHandlerService);
-  private api = environment.apicall;
 
   createProject = new FormGroup({
     projectTitle: new FormControl('', [
@@ -56,28 +50,10 @@ export class CreateProject {
       return;
     }
 
-    this.loading.set(true);
-    this.http
-      .post<any>(
-        `${this.api}/projects`,
-        {
-          title: projectTitle,
-          description,
-          imageUrl,
-        },
-        { withCredentials: true },
-      )
-      .subscribe({
-        next: (res) => {
-          toast.success('Project created');
-          this.loading.set(false);
-          this.dialogRef?.close(res.data ?? res);
-        },
-        error: (err) => {
-          this.loading.set(false);
-          const msg = this.errorHandler.handleStatus(err.status);
-          toast.error(msg);
-        },
-      });
+    this.dialogRef?.close({
+      title: projectTitle,
+      description,
+      imageUrl,
+    });
   }
 }
