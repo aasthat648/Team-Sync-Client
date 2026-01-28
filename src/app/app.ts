@@ -8,6 +8,8 @@ import { AuthService } from './services/auth';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
+  // styleUrl: '../styles.css',
+  styleUrl: '../styles.css',
 })
 export class App implements OnInit {
   user: AuthResponse | null = null;
@@ -19,13 +21,15 @@ export class App implements OnInit {
 
   ngOnInit() {
     // Option 1: Subscribe to reactive updates
-    this.userStore.user$.subscribe((user) => {
-      this.user = user;
-    });
+    // this.userStore.user$.subscribe((user) => {
+    //   this.user = user;
+    // });
 
-    // Option 2: Fetch user from API if not already loaded
-    if (!this.userStore.snapshot) {
-      this.authService.fetchUser().subscribe();
-    }
+    // // Option 2: Fetch user from API if not already loaded
+    // if (!this.userStore.snapshot) {
+    //   this.authService.fetchUser().subscribe();
+    // }
+
+    console.log('App is running');
   }
 }

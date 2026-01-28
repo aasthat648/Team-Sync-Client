@@ -1,9 +1,10 @@
+import { ThemeComponent } from '@/shared/components/theme/theme';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home-layout',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ThemeComponent],
   templateUrl: './home.html',
 })
 export class HomeLayout {}
