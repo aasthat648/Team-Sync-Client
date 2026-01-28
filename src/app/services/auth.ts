@@ -9,7 +9,7 @@ import { environment } from 'src/environment/environment.example';
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL: string = environment.apicall;
+  private readonly API_URL: string = `${environment.apicall}/auth`;
 
   constructor(
     private http: HttpClient,

@@ -1,3 +1,3 @@
 export const environment = {
-  apicall: 'demo',
+  apicall: 'https://tsb.gautamsuthar.in/api/v1',
 };
