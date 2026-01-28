@@ -7,6 +7,7 @@ import { inject, Component, signal } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ZardInputDirective } from '@/shared/components/input/input.directive';
 import { toast } from 'ngx-sonner';
+import { ProjectService } from '@/shared/services/project/project-service';
 
 @Component({
   selector: 'app-create-project',
@@ -23,6 +24,7 @@ import { toast } from 'ngx-sonner';
 export class CreateProject {
   private zData = inject(Z_MODAL_DATA);
   private dialogRef = inject<ZardDialogRef<CreateProject>>(ZardDialogRef);
+  private projectService = inject(ProjectService);
 
   createProject = new FormGroup({
     projectTitle: new FormControl('', [
@@ -50,10 +52,26 @@ export class CreateProject {
       return;
     }
 
-    this.dialogRef?.close({
-      title: projectTitle,
-      description,
-      imageUrl,
-    });
+    const workspaceId = typeof window !== 'undefined' ? localStorage.getItem('workspaceId') : null;
+    if (!workspaceId) {
+      toast.error('Workspace ID not found');
+      return;
+    }
+
+    this.projectService
+      .createProject(workspaceId, {
+        title: projectTitle!,
+        description: description || undefined,
+        imageUrl: imageUrl || undefined,
+      })
+      .subscribe({
+        next: (res) => {
+          toast.success('Project created');
+          this.dialogRef?.close(res.data ?? res);
+        },
+        error: (err) => {
+          toast.error(err.error?.error || 'Failed to create project');
+        },
+      });
   }
 }
