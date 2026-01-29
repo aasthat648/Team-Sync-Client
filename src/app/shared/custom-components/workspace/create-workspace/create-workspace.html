@@ -4,16 +4,16 @@
     z-input
     type="text"
     placeholder="Name of workspace"
-    formControlName="workspaceName"
+    formControlName="name"
     zSize="lg"
     class="text-secondary-foreground text-sm"
   />
-  @if (workspaceForm.get('workspaceName')?.touched && workspaceForm.get('workspaceName')?.invalid) {
-    @if (workspaceForm.get('workspaceName')?.errors?.['required']) {
+  @if (workspaceForm.get('name')?.touched && workspaceForm.get('name')?.invalid) {
+    @if (workspaceForm.get('name')?.errors?.['required']) {
       <span class="text-destructive"> workspace name is required</span>
     } @else if (
-      workspaceForm.get('workspaceName')?.errors?.['minlength'] ||
-      workspaceForm.get('workspaceName')?.errors?.['maxlength']
+      workspaceForm.get('name')?.errors?.['minlength'] ||
+      workspaceForm.get('name')?.errors?.['maxlength']
     ) {
       <span class="text-destructive">name can be of 2-50 characters</span>
     }

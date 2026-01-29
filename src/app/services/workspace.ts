@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthStore } from '@/store/auth';
 import { User } from '@/types/auth';
-import { environment } from 'src/environment/environment.example';
+import { environment } from 'src/environment/environment';
 import { AuthService } from './auth';
 import { CreateWorkspacePayload, WorkspaceResponse, WorkspacesResponse } from '@/types/workspace';
 
