@@ -24,3 +24,10 @@ export interface CreateWorkspacePayload {
   description: string | null | undefined;
   imageUrl?: string | null | undefined;
 }
+
+export interface UpdateWorkspacePayload {
+  name: string;
+  description: string | null | undefined;
+  imageUrl?: string | null | undefined;
+  inviteCode: string;
+}

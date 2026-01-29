@@ -5,7 +5,12 @@ import { AuthStore } from '@/store/auth';
 import { User } from '@/types/auth';
 import { environment } from 'src/environment/environment';
 import { AuthService } from './auth';
-import { CreateWorkspacePayload, WorkspaceResponse, WorkspacesResponse } from '@/types/workspace';
+import {
+  CreateWorkspacePayload,
+  UpdateWorkspacePayload,
+  WorkspaceResponse,
+  WorkspacesResponse,
+} from '@/types/workspace';
 
 @Injectable({
   providedIn: 'root',
@@ -37,5 +42,19 @@ export class WorkspaceService {
 
   getWorkspaces(): Observable<WorkspacesResponse> {
     return this.http.get<WorkspacesResponse>(`${this.API_URL}`);
+  }
+
+  updateWorkspace(payload: UpdateWorkspacePayload): Observable<WorkspaceResponse> {
+    this.authStore.user$.subscribe((user) => {
+      this.user = user;
+    });
+
+    if (!this.authStore.snapshot) {
+      this.authService.fetchUser().subscribe();
+    }
+    return this.http.patch<WorkspaceResponse>(
+      `${this.API_URL}/${this.user?.currentWorkspace}`,
+      payload,
+    );
   }
 }

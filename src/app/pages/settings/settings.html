@@ -1,0 +1,125 @@
+<div class="h-full w-full bg-gray-50 flex justify-center rounded-xl p-5">
+  <div class="w-full max-w-4xl">
+    <div class="pb-1 pl-2">
+      <h1 class="text-3xl font-semibold text-gray-900">Workspace settings</h1>
+      <p class="text-sm text-muted-foreground mt-1">
+        Manage your workspace details and preferences
+      </p>
+    </div>
+
+    <form
+      class="bg-white rounded-xl border p-6 space-y-3"
+      [formGroup]="settingForm"
+      (ngSubmit)="handleSetting()"
+    >
+      <h2 class="text-lg font-medium">Workspace icon</h2>
+
+      <div class="flex items-center gap-6">
+        <z-avatar
+          zSrc="https://zardui.com/images/avatar/imgs/avatar_image.jpg"
+          zAlt="Workspace Avatar"
+          zSize="xl"
+          zShape="rounded"
+          class="cursor-pointer"
+          (click)="fileInput.click()"
+        />
+        <div class="flex flex-col gap-1">
+          <p class="text-sm text-muted-foreground">Click the icon to upload a new image</p>
+          <p class="text-xs text-muted-foreground">PNG, JPG up to 2MB</p>
+        </div>
+        <input #fileInput type="file" hidden />
+      </div>
+
+      <h2 class="text-lg font-medium">Workspace information</h2>
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium">Workspace name</label>
+        <input
+          z-input
+          type="text"
+          zSize="lg"
+          value="{{ workspace?.name }}"
+          formControlName="name"
+          placeholder="Enter workspace name"
+        />
+      </div>
+      @if (settingForm.get('name')?.touched && settingForm.get('name')?.invalid) {
+        @if (settingForm.get('name')?.errors?.['required']) {
+          <span class="text-destructive"> workspace name is required</span>
+        } @else if (
+          settingForm.get('name')?.errors?.['minlength'] ||
+          settingForm.get('name')?.errors?.['maxlength']
+        ) {
+          <span class="text-destructive">name can be of 2-50 characters</span>
+        }
+      }
+
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium">Workspace description</label>
+        <textarea
+          z-input
+          rows="3"
+          placeholder="Briefly describe your workspace"
+          formControlName="description"
+          value="{{ workspace?.description }}"
+          class="resize-none"
+        ></textarea>
+      </div>
+
+      @if (settingForm.get('description')?.errors?.['maxlength']) {
+        <span class="text-destructive">description can be of 255 characters</span>
+      }
+      <div class="flex flex-col gap-1">
+        <label class="text-sm font-medium">Invite code</label>
+        <div class="relative">
+          <div class="absolute inset-0 z-0 rounded-md border bg-white"></div>
+
+          <span
+            class="absolute h-full left-3 flex items-center text-gray-500 text-sm pointer-events-none z-10"
+          >
+            https://teamsync.com/invite/
+          </span>
+
+          <input
+            z-input
+            type="text"
+            zSize="lg"
+            class="relative z-20 bg-transparent pl-44.5 text-gray-500 text-sm"
+            formControlName="inviteCode"
+            value="{{ workspace?.inviteCode }}"
+          />
+        </div>
+        <!-- <div class="grid grid-cols-[auto_1fr] items-center rounded-lg border px-3 py-2 bg-white">
+          <span class="pr-3 mr-3 border-r text-sm text-gray-500 whitespace-nowrap">
+            https://teamsync.com/invite/
+          </span>
+
+          <input
+            z-input
+            type="text"
+            zSize="lg"
+            class="border-0 bg-transparent text-sm text-gray-500 focus:ring-0 p-0"
+            formControlName="inviteCode"
+            value="{{ workspace?.inviteCode }}"
+            placeholder="your-code"
+          />
+        </div> -->
+      </div>
+      @if (settingForm.get('inviteCode')?.touched && settingForm.get('inviteCode')?.invalid) {
+        @if (settingForm.get('inviteCode')?.errors?.['required']) {
+          <span class="text-destructive"> workspace invite is required</span>
+        } @else if (
+          settingForm.get('inviteCode')?.errors?.['minlength'] ||
+          settingForm.get('inviteCode')?.errors?.['maxlength']
+        ) {
+          <span class="text-destructive">Invite can be of 3to 10 characters</span>
+        }
+      }
+
+      <div class="flex justify-end gap-3">
+        <button type="submit" z-button zType="default" class="">Update workspace</button>
+        <button z-button zType="destructive">Delete workspace</button>
+      </div>
+    </form>
+  </div>
+</div>
