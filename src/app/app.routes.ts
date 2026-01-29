@@ -25,33 +25,32 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./layout/dashboard/dashboard').then((m) => m.DashboardLayout),
 
-    // children: [
-    //   {
-    //     path: '',
-    //     loadComponent: () =>
-    //       import('./pages/client/dashboard/dashboard/dashboard').then((m) => m.Dashboard),
-    //     canActivate: [AuthGuard],
-    //   },
-    //   {
-    //     path: 'tasks',
-    //     loadComponent: () => import('./pages/client/dashboard/tasks/tasks').then((m) => m.Tasks),
-    //   },
-    //   {
-    //     path: 'members',
-    //     loadComponent: () =>
-    //       import('./pages/client/dashboard/members/members').then((m) => m.Members),
-    //   },
-    //   {
-    //     path: 'settings',
-    //     loadComponent: () =>
-    //       import('./pages/client/dashboard/settings/settings').then((m) => m.Settings),
-    //   },
-    //   {
-    //     path: 'projects',
-    //     loadComponent: () =>
-    //       import('./pages/client/dashboard/projects/projects').then((m) => m.Projects),
-    //   },
-    // ],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
+        canActivate: [AuthGuard],
+      },
+      //   {
+      //     path: 'tasks',
+      //     loadComponent: () => import('./pages/client/dashboard/tasks/tasks').then((m) => m.Tasks),
+      //   },
+      //   {
+      //     path: 'members',
+      //     loadComponent: () =>
+      //       import('./pages/client/dashboard/members/members').then((m) => m.Members),
+      //   },
+      {
+        path: 'settings',
+        loadComponent: () => import('./pages/settings/settings').then((m) => m.Settings),
+        canActivate: [AuthGuard],
+      },
+      //   {
+      //     path: 'projects',
+      //     loadComponent: () =>
+      //       import('./pages/client/dashboard/projects/projects').then((m) => m.Projects),
+      //   },
+    ],
   },
   {
     path: '**',

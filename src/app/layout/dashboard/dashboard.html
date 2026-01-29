@@ -67,7 +67,13 @@
           @if (!sidebarCollapsed()) {
             <div>
               <span class="text-sm">{{ defaultWorkspace?.name }}</span>
-              <div class="text-xs">{{ defaultWorkspace?.description }}</div>
+              <div class="text-xs">
+                {{
+                  (defaultWorkspace?.description?.length ?? 0) > 20
+                    ? (defaultWorkspace?.description | slice: 0 : 20) + '...'
+                    : defaultWorkspace?.description
+                }}
+              </div>
             </div>
 
             <z-icon zType="chevrons-up-down" class="ml-auto" />
