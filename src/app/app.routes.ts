@@ -31,15 +31,16 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
         canActivate: [AuthGuard],
       },
-      //   {
-      //     path: 'tasks',
-      //     loadComponent: () => import('./pages/client/dashboard/tasks/tasks').then((m) => m.Tasks),
-      //   },
-      //   {
-      //     path: 'members',
-      //     loadComponent: () =>
-      //       import('./pages/client/dashboard/members/members').then((m) => m.Members),
-      //   },
+      {
+        path: 'tasks',
+        loadComponent: () => import('./pages/tasks/tasks').then((m) => m.Tasks),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'members',
+        loadComponent: () => import('./pages/members/members').then((m) => m.Members),
+        canActivate: [AuthGuard],
+      },
       {
         path: 'settings',
         loadComponent: () => import('./pages/settings/settings').then((m) => m.Settings),
