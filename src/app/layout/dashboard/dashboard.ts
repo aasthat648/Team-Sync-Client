@@ -28,7 +28,7 @@ import { User } from '@/types/auth';
 import { ProfilePayload } from '@/types/profile';
 import { CreateWorkspacePayload, Workspace } from '@/types/workspace';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { ɵInternalFormsSharedModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
@@ -65,12 +65,13 @@ export class DashboardLayout implements OnInit {
     private sheetService: ZardSheetService,
     private profileService: ProfileService,
     private dialogService: ZardDialogService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   sidebarCollapsed = signal(false);
   user: User | null = null;
   defaultWorkspace: Workspace | null | undefined = null;
-  workspaces: Workspace[] | null | undefined = null;
+  workspaces: Workspace[] | undefined = [];
   workspaceMenuItems = menuItems;
 
   ngOnInit() {
@@ -90,12 +91,16 @@ export class DashboardLayout implements OnInit {
           // TODO: add toast message
         }
         this.defaultWorkspace = res.data;
+        // this.workspaces =
+        this.cdr.detectChanges();
       },
       error: (err) => {
         const errorMessage = this.errorHandleService.handleStatus(err.status);
         // TODO: add toast message
       },
     });
+
+    this.loadWorkspaces();
   }
 
   navigate(link?: string) {
@@ -146,13 +151,14 @@ export class DashboardLayout implements OnInit {
     });
   }
 
-  loadWorkspaces() {
+  private loadWorkspaces() {
     this.workspaceService.getWorkspaces().subscribe({
       next: (res) => {
         if (!res.data) {
           return;
         }
         this.workspaces = res.data;
+        this.cdr.detectChanges();
       },
 
       error: (err) => {
@@ -189,6 +195,7 @@ export class DashboardLayout implements OnInit {
               return;
             }
             this.workspaces?.push(res.data);
+            this.cdr.detectChanges();
           },
           error: (err) => {
             console.log(err);
@@ -199,6 +206,15 @@ export class DashboardLayout implements OnInit {
 
       zCancelText: null,
       zClosable: true,
+    });
+  }
+
+  changeWorkspace(workspaceId: string) {
+    this.profileService.changeCurrentWorkspace(workspaceId).subscribe({
+      next: (res) => {
+        this.defaultWorkspace = res.data;
+        this.cdr.detectChanges();
+      },
     });
   }
 }

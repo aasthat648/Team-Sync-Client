@@ -70,7 +70,7 @@
               <div class="text-xs">{{ defaultWorkspace?.description }}</div>
             </div>
 
-            <z-icon zType="chevrons-up-down" class="ml-auto" (click)="loadWorkspaces()" />
+            <z-icon zType="chevrons-up-down" class="ml-auto" />
           }
         </div>
 
@@ -86,6 +86,7 @@
               z-menu-item
               *ngFor="let ws of workspaces"
               [hidden]="ws.id === defaultWorkspace?.id"
+              (click)="changeWorkspace(ws.id)"
             >
               <z-icon zType="layers" class="mr-2" />
               {{ ws.name }}

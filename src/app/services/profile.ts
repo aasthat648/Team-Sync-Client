@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthStore } from '@/store/auth';
 import { User } from '@/types/auth';
-import { environment } from 'src/environment/environment.example';
+import { environment } from 'src/environment/environment';
 import { AuthService } from './auth';
 import { CreateWorkspacePayload, WorkspaceResponse, WorkspacesResponse } from '@/types/workspace';
 import { ProfilePayload, ProfileResponse } from '@/types/profile';
@@ -31,10 +31,21 @@ export class ProfileService {
   }
 
   // whenever you use this api, make sure to update auth store
-  changeCurrentWorkspace(workspaceId: string): Observable<ProfileResponse> {
-    return this.http.patch<ProfileResponse>(
-      `${this.API_URL}/current-workspace/${workspaceId}/`,
-      {},
-    );
+  changeCurrentWorkspace(workspaceId: string): Observable<WorkspaceResponse> {
+    return this.http
+      .patch<WorkspaceResponse>(`${this.API_URL}/current-workspace/${workspaceId}/`, {})
+      .pipe(
+        tap((res) => {
+          if (!res?.data) return;
+
+          const user = this.authStore.snapshot;
+          if (!user) return;
+
+          this.authStore.setUser({
+            ...user,
+            currentWorkspace: res.data.id,
+          });
+        }),
+      );
   }
 }
