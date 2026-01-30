@@ -195,6 +195,8 @@ export class DashboardLayout implements OnInit {
               return;
             }
             this.workspaces?.push(res.data);
+            this.changeWorkspace(res.data.id);
+            this.router.navigate(['dashboard']);
             this.cdr.detectChanges();
           },
           error: (err) => {

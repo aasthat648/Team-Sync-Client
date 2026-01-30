@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthStore } from '@/store/auth';
 import { User } from '@/types/auth';
 import { environment } from 'src/environment/environment';
 import { AuthService } from './auth';
@@ -11,6 +10,7 @@ import {
   WorkspaceResponse,
   WorkspacesResponse,
 } from '@/types/workspace';
+import { AuthStore } from '@/store/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +45,8 @@ export class WorkspaceService {
   }
 
   updateWorkspace(payload: UpdateWorkspacePayload): Observable<WorkspaceResponse> {
+    console.log('I am called');
+
     this.authStore.user$.subscribe((user) => {
       this.user = user;
     });
@@ -56,5 +58,16 @@ export class WorkspaceService {
       `${this.API_URL}/${this.user?.currentWorkspace}`,
       payload,
     );
+  }
+
+  deleteWorkspace(): Observable<WorkspaceResponse> {
+    this.authStore.user$.subscribe((user) => {
+      this.user = user;
+    });
+
+    if (!this.authStore.snapshot) {
+      this.authService.fetchUser().subscribe();
+    }
+    return this.http.delete<WorkspaceResponse>(`${this.API_URL}/${this.user?.currentWorkspace}`);
   }
 }
