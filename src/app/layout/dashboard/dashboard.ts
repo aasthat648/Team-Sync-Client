@@ -101,6 +101,20 @@ export class DashboardLayout implements OnInit {
     });
 
     this.loadWorkspaces();
+
+    this.workspaceService.workspaceChanged$.subscribe(() => {
+      this.loadWorkspaces();
+      this.loadCurrentWorkspace();
+    });
+  }
+
+  private loadCurrentWorkspace() {
+    this.workspaceService.currentWorkspace().subscribe({
+      next: (res) => {
+        this.defaultWorkspace = res.data;
+        this.cdr.detectChanges();
+      },
+    });
   }
 
   navigate(link?: string) {

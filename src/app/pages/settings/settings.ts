@@ -108,7 +108,11 @@ export class Settings implements OnInit {
 
         console.log('Changing workspace');
 
-        this.profileService.changeCurrentWorkspace(this.workspaces[0].id).subscribe();
+        this.profileService.changeCurrentWorkspace(this.workspaces[0].id).subscribe({
+          next: (res) => {
+            this.workspaceService.notifyWorkspaceChanged();
+          },
+        });
 
         console.log('Deleted');
 

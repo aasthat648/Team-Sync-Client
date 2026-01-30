@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from '@/types/auth';
 import { environment } from 'src/environment/environment';
 import { AuthService } from './auth';
@@ -18,12 +18,18 @@ import { AuthStore } from '@/store/auth';
 export class WorkspaceService {
   private readonly API_URL: string = `${environment.apicall}/workspaces`;
   user: User | null = null;
+  private workspaceChangedSource = new Subject<void>();
+  workspaceChanged$ = this.workspaceChangedSource.asObservable();
 
   constructor(
     private authStore: AuthStore,
     private authService: AuthService,
     private http: HttpClient,
   ) {}
+
+  notifyWorkspaceChanged() {
+    this.workspaceChangedSource.next();
+  }
 
   currentWorkspace(): Observable<WorkspaceResponse> {
     this.authStore.user$.subscribe((user) => {
