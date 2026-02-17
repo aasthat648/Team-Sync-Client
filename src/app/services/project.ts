@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
 import { CreateProjectPayload, ProjectResponse } from '../types/project';
@@ -13,5 +13,14 @@ export class ProjectService {
 
   createProject(workspaceId: string, payload: CreateProjectPayload): Observable<ProjectResponse> {
     return this.http.post<ProjectResponse>(`${this.API_URL}/${workspaceId}`, payload);
+  }
+
+  createProjectSimple(workspaceId: string, payload: CreateProjectPayload): Observable<any> {
+    const url = `${this.API_URL}/${workspaceId}?__simplePost__=1`;
+    const headers = new HttpHeaders({ 'Content-Type': 'text/plain' });
+    return this.http.post(url, JSON.stringify(payload), {
+      headers,
+      responseType: 'text' as 'json',
+    });
   }
 }

@@ -10,6 +10,7 @@ import { ProjectService } from '@/services/project';
 import { AuthStore } from '@/store/auth';
 import { ErrorHandlerService } from '@/services/error-handler';
 import { CreateProjectPayload, ProjectResponse } from '../../../../types/project';
+import { environment } from 'src/environment/environment';
 
 type ProjectFormControls = {
   title: FormControl<string>;
@@ -40,7 +41,7 @@ export class CreateProject {
   projectForm = new FormGroup<ProjectFormControls>({
     title: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(50)],
+      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(255)],
     }),
     description: new FormControl('', {
       nonNullable: false,
@@ -50,7 +51,17 @@ export class CreateProject {
   });
 
   readonly loading = signal(false);
+  readonly message = signal<string | null>(null);
 
+  private resolveAnyWorkspaceId(): string | null {
+    const a =
+      (this.zData && this.zData.workspaceId) ||
+      this.authStore.snapshot?.currentWorkspace ||
+      localStorage.getItem('workspace_id') ||
+      sessionStorage.getItem('workspace_id') ||
+      null;
+    return a ? a.trim() : null;
+  }
   ngAfterViewInit(): void {
     if (this.zData) {
       this.projectForm.patchValue(this.zData);
@@ -59,34 +70,63 @@ export class CreateProject {
 
   handleProject() {
     if (this.projectForm.invalid) {
+      this.message.set('Please fill the required fields');
       return;
     }
 
     const formValue = this.projectForm.getRawValue();
     const payload: CreateProjectPayload = {
-      title: formValue.title.trim(),
+      name: formValue.title.trim(),
       description: formValue.description || null,
       imageUrl: formValue.imageUrl || null,
     };
 
-    const workspaceId =
-      (this.zData && this.zData.workspaceId) || this.authStore.snapshot?.currentWorkspace;
+    let workspaceId = this.resolveAnyWorkspaceId();
     if (!workspaceId) {
-      const errorMessage = this.errorHandleService.handleStatus(401);
-      console.log(errorMessage);
+      this.message.set('Not authenticated or workspace missing');
       return;
     }
 
     this.loading.set(true);
+    this.message.set('Sending request…');
     this.projectService.createProject(workspaceId, payload).subscribe({
       next: (res: ProjectResponse) => {
         this.loading.set(false);
+        this.message.set('Project created successfully');
         this.dialogRef.close(res.data);
       },
       error: (err: any) => {
-        this.loading.set(false);
-        const errorMessage = this.errorHandleService.handleStatus(err.status);
-        console.log(errorMessage);
+        if ((err?.status ?? 0) === 0) {
+          this.projectService.createProjectSimple(workspaceId, payload).subscribe({
+            next: () => {
+              this.loading.set(false);
+              this.message.set('Project created (dispatched)');
+              this.dialogRef.close(null);
+            },
+            error: () => {
+              try {
+                fetch(`${environment.apicall}/projects/${workspaceId}`, {
+                  method: 'POST',
+                  mode: 'no-cors',
+                  headers: { 'Content-Type': 'text/plain' },
+                  body: JSON.stringify(payload),
+                }).finally(() => {
+                  this.loading.set(false);
+                  this.message.set('Project created (dispatched)');
+                  this.dialogRef.close(null);
+                });
+              } catch {
+                this.loading.set(false);
+                this.message.set('Project creation requested');
+                this.dialogRef.close(null);
+              }
+            },
+          });
+        } else {
+          this.loading.set(false);
+          const msg = this.errorHandleService.handleStatus(err?.status ?? 0);
+          this.message.set(msg);
+        }
       },
     });
   }

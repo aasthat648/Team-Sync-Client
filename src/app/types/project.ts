@@ -1,13 +1,13 @@
 export interface Project {
   id: string;
   workspaceId: string;
-  title: string;
+  name: string;
   description: string | null;
   imageUrl?: string | null | undefined;
 }
 
 export interface CreateProjectPayload {
-  title: string;
+  name: string;
   description?: string | null | undefined;
   imageUrl?: string | null | undefined;
 }
