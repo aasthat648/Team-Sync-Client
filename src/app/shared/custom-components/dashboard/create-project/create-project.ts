@@ -6,10 +6,9 @@ import { CommonModule } from '@angular/common';
 import { Component, signal, Inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ZardInputDirective } from '@/shared/components/input/input.directive';
-import { ProjectService } from '@/services/project';
 import { AuthStore } from '@/store/auth';
-import { ErrorHandlerService } from '@/services/error-handler';
-import { CreateProjectPayload, ProjectResponse } from '../../../../types/project';
+import { CreateProjectPayload } from '../../../../types/project';
+import { ProjectService } from '@/services/project';
 import { environment } from 'src/environment/environment';
 
 type ProjectFormControls = {
@@ -33,9 +32,8 @@ export class CreateProject {
   constructor(
     @Inject(Z_MODAL_DATA) private zData: any,
     private dialogRef: ZardDialogRef<CreateProject>,
-    private projectService: ProjectService,
     private authStore: AuthStore,
-    private errorHandleService: ErrorHandlerService,
+    private projectService: ProjectService,
   ) {}
 
   projectForm = new FormGroup<ProjectFormControls>({
@@ -75,11 +73,13 @@ export class CreateProject {
     }
 
     const formValue = this.projectForm.getRawValue();
-    const payload: CreateProjectPayload = {
-      name: formValue.title.trim(),
-      description: formValue.description || null,
-      imageUrl: formValue.imageUrl || null,
-    };
+    const payload: CreateProjectPayload = { name: formValue.title.trim() };
+    if (formValue.description && formValue.description.trim().length > 0) {
+      payload.description = formValue.description.trim();
+    }
+    if (formValue.imageUrl && formValue.imageUrl.trim().length > 0) {
+      payload.imageUrl = formValue.imageUrl.trim();
+    }
 
     let workspaceId = this.resolveAnyWorkspaceId();
     if (!workspaceId) {
@@ -87,46 +87,20 @@ export class CreateProject {
       return;
     }
 
+    console.log('Create project payload', payload);
+
     this.loading.set(true);
-    this.message.set('Sending request…');
+    this.message.set('Creating project…');
     this.projectService.createProject(workspaceId, payload).subscribe({
-      next: (res: ProjectResponse) => {
+      next: (res) => {
+        console.log('Create project response', res);
         this.loading.set(false);
-        this.message.set('Project created successfully');
-        this.dialogRef.close(res.data);
+        this.message.set('Project created');
+        this.dialogRef.close((res as any) ?? null);
       },
-      error: (err: any) => {
-        if ((err?.status ?? 0) === 0) {
-          this.projectService.createProjectSimple(workspaceId, payload).subscribe({
-            next: () => {
-              this.loading.set(false);
-              this.message.set('Project created (dispatched)');
-              this.dialogRef.close(null);
-            },
-            error: () => {
-              try {
-                fetch(`${environment.apicall}/projects/${workspaceId}`, {
-                  method: 'POST',
-                  mode: 'no-cors',
-                  headers: { 'Content-Type': 'text/plain' },
-                  body: JSON.stringify(payload),
-                }).finally(() => {
-                  this.loading.set(false);
-                  this.message.set('Project created (dispatched)');
-                  this.dialogRef.close(null);
-                });
-              } catch {
-                this.loading.set(false);
-                this.message.set('Project creation requested');
-                this.dialogRef.close(null);
-              }
-            },
-          });
-        } else {
-          this.loading.set(false);
-          const msg = this.errorHandleService.handleStatus(err?.status ?? 0);
-          this.message.set(msg);
-        }
+      error: (err) => {
+        this.loading.set(false);
+        this.message.set(err?.error?.error || err?.error?.message || 'Failed to create project');
       },
     });
   }
